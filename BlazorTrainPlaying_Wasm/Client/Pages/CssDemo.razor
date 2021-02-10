@@ -1,0 +1,11 @@
+﻿@page "/CssDemo"
+<h3>CssDemo</h3>
+
+<label>background-color:</label>
+<input @bind="BackgroundColor"/>
+
+<CssDemoComponent BackgroundColor="@BackgroundColor"/>
+
+@code {
+    public string BackgroundColor { get; set; } = "red";
+}

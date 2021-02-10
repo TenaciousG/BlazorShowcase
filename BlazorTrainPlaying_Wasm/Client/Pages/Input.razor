@@ -14,7 +14,15 @@
 <input @bind="Message" @bind:event="oninput" @onkeyup="KeyUpHandler" style="width: 50%;" />
 @*<input @bind-value="Message" style="width: 50%;"/>*@
 
+
+
+<h2>Input with setFocus</h2>
+<button class="btn btn-primary" @onclick="() => focusableInput.FocusAsync()">Focus the input</button>
+<input @ref="focusableInput"/>
+
 @code {
+
+    ElementReference focusableInput;
     
     protected override void OnInitialized()
     {
