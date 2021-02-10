@@ -1,0 +1,11 @@
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\bin\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.deps.json
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\bin\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.dll
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\bin\Debug\net5.0\ref\BlazorTrainPlaying_Wasm.Shared.dll
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\bin\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.pdb
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.AssemblyInfoInputs.cache
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.AssemblyInfo.cs
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.csproj.CoreCompileInputs.cache
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.dll
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\ref\BlazorTrainPlaying_Wasm.Shared.dll
+C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Shared\obj\Debug\net5.0\BlazorTrainPlaying_Wasm.Shared.pdb

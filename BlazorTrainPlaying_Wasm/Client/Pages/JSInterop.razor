@@ -1,0 +1,21 @@
+﻿@page "/jsinterop"
+@inject IJSRuntime js
+
+<button @onclick="ShowButtonClicked">Show Input</button>
+<br/>
+@if (showInput)
+{
+    <input style="margin: 10px;" id="MyInputText"/>
+}
+
+@code {
+
+    bool showInput = false;
+
+    async Task ShowButtonClicked()
+    {
+        showInput = true;
+        await js.InvokeVoidAsync("SetFocus", "MyInputText");
+    }
+
+}

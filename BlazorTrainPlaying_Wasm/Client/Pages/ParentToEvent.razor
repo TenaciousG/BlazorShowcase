@@ -1,0 +1,23 @@
+﻿@page "/parenttoevent"
+
+<h1>@Message</h1>
+<br/>
+<input @bind="Message" @bind:event="oninput" style="width: 50%;"/>
+<br />
+<br />
+
+@*Needs the bind-xxx:event to provide two way binding back to the calling component*@
+
+<h2>Two way bound parameter to child component using event</h2>
+<Events @bind-ParentMessage="Message" @bind-ParentMessage:event="MessageChanged"/>
+
+<h2>One way bound parameter to child component</h2>
+<Events ParentMessage="@Message" />
+
+@code {
+
+    private string Message { get; set; } = "Private Message";
+
+
+
+}

@@ -1,0 +1,27 @@
+﻿@page "/AppStateDemo"
+
+<button class="btn btn-primary" @onclick="ToggleEnabledButtonClicked">Toggle Enabled</button>
+
+<button class="btn btn-primary" @onclick="UpdateMessageButtonClicked">Update Message</button>
+<br/>
+<br/>
+<h3>@AppState.Message</h3>
+
+<br/>
+<ChildComponent/>
+
+@code {
+    [CascadingParameter]
+    public CascadingAppState AppState { get; set; }
+
+    void UpdateMessageButtonClicked()
+    {
+        AppState.Message = "Message updated at " + DateTime.Now.ToLongTimeString();
+    }
+
+    private void ToggleEnabledButtonClicked()
+    {
+        AppState.Enabled = !AppState.Enabled;
+    }
+
+}

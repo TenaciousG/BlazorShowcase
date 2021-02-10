@@ -1,0 +1,5 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Client\bin\Debug\net5.0\wwwroot\" />
+  <ContentRoot BasePath="/" Path="C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_Wasm\Client\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/Blazored.Modal" Path="C:\Users\GlenOlsen\.nuget\packages\blazored.modal\6.0.1\build\..\staticwebassets\" />
+</StaticWebAssets>

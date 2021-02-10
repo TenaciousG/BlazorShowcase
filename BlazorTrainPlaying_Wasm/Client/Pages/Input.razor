@@ -1,0 +1,32 @@
+﻿@page "/input"
+
+<h1>Input</h1>
+
+<h1>@Message</h1>
+
+<h2>Two way default</h2>
+<input @bind="Message" style="width: 50%;"/>
+
+<h2>Two way oninput</h2>
+<input @bind="Message" @bind:event="oninput" style="width: 50%;" />
+
+<h2>Two way oninput keyuphandler</h2>
+<input @bind="Message" @bind:event="oninput" @onkeyup="KeyUpHandler" style="width: 50%;" />
+@*<input @bind-value="Message" style="width: 50%;"/>*@
+
+@code {
+    
+    protected override void OnInitialized()
+    {
+        int a = 1;
+
+    }
+
+    public string? Message { get; set; } = "Two way bound message";
+
+    private void KeyUpHandler(KeyboardEventArgs obj)
+    {
+        
+    }
+
+}

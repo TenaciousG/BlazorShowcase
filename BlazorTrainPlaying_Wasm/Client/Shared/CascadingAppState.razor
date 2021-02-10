@@ -1,0 +1,54 @@
+﻿@*
+    
+    Use cascading app state for simple cases when you dont need to be notified on updates.
+Otherwise use Injected service
+    
+    *@
+
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private string message = "";
+
+    public string Message
+    {
+        get => message;
+        set
+        {
+            message = value;
+            StateHasChanged();
+        }
+    }
+    
+    private int counter = 0;
+
+    public int Counter
+    {
+        get => counter;
+        set
+        {
+            counter = value;
+            StateHasChanged();
+        }
+    }
+
+    private bool enabled = false;
+
+    public bool Enabled
+    {
+        get => enabled;
+        set
+        {
+            enabled = value;
+            StateHasChanged();
+        }
+    }
+
+}

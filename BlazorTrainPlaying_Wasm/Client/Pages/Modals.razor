@@ -1,0 +1,29 @@
+﻿@page "/modals"
+
+<h1>Modal dialogs</h1>
+
+<h2>Open source Blazored Modal</h2>
+<div class="card mb-4">
+    <div class="card-body">
+        <p class="card-text">
+           <code>
+                @("Just an example of usage: Modal.Show<Confirm>(\"Welcome to Blazored Modal\", options);")
+            </code>
+        </p>
+    </div>
+</div>
+
+<button @onclick="ShowModal" class="btn btn-primary">Show Modal</button>
+
+<div>
+    <p>Checkout installation and usage:</p>
+    <a href="https://github.com/Blazored/Modal"/>
+</div>
+
+@code {
+
+    [CascadingParameter]
+    public IModalService Modal { get; set; }
+
+    private void ShowModal() => Modal.Show<Confirm>("Welcome to Blazored Modal");
+}
