@@ -100,7 +100,7 @@ using System.Diagnostics;
 #nullable restore
 #line 9 "C:\Users\GlenOlsen\source\repos\BlazorTrain\BlazorTrainPlaying_BServer\Pages\Index.razor"
        
-    public override void OnInitialized()
+    protected override void OnInitialized()
         {
 
         }
