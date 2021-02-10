@@ -1,5 +1,9 @@
-﻿<div style="height: 42px;">
+﻿@inject AppStateService AppStateService
+@implements IDisposable
+
+<div style="height: 42px;">
     <span style="font-size: xx-large">@AppState.Message&nbsp;</span>
+    <span style="font-size: xx-large">@AppStateService.Message&nbsp;</span>
     @if (AppState.Enabled)
     {
         <button class="btn btn-success">Enabled</button>
@@ -8,20 +12,54 @@
     {
         <button class="btn btn-danger">Disabled</button>
     }
-    
-    <button class="btn btn-primary" @onclick="UpdateMessageButtonClicked">Update Message</button>
+
+    <button class="btn btn-primary" @onclick="UpdateMessageButtonOnCascadingClicked">Update Casc Message</button>
+    <button class="btn btn-primary" @onclick="UpdateMessageButtonOnInjectedClicked">Update Casc Message</button>
 </div>
 
 @code {
 
+    /*
+     * Cascading App state pattern:
+     */
     [CascadingParameter]
     public CascadingAppState AppState { get; set; }
 
-    //public CascadingAppState CascadingAppState { get; set; }
 
-
-    void UpdateMessageButtonClicked()
+    void UpdateMessageButtonOnCascadingClicked()
     {
         AppState.Message = "Message updated at " + DateTime.Now.ToLongTimeString();
     }
+
+
+    /*
+     * AppState service pattern
+     */
+
+    void UpdateMessageButtonOnInjectedClicked()
+    {
+        AppStateService.UpdateMessage(this,"Message updated at " + DateTime.Now.ToLongTimeString());
+    }
+
+    protected override void OnInitialized()
+    {
+        AppStateService.StateChanged += async (source, property) => await AppState_StateChanged(source, property);
+    }
+
+    /*
+     * Remember to unsubscribe to avoid mem leaks
+     */
+    void IDisposable.Dispose()
+    {
+        AppStateService.StateChanged -= async (source, property) => await AppState_StateChanged(source, property);
+    }
+
+    private async Task AppState_StateChanged(ComponentBase source, string property)
+    {
+        if (source != this)
+        {
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
 }

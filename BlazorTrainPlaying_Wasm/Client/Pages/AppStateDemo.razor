@@ -1,27 +1,66 @@
 ﻿@page "/AppStateDemo"
+@inject AppStateService AppStateService
+@implements IDisposable
+
 
 <button class="btn btn-primary" @onclick="ToggleEnabledButtonClicked">Toggle Enabled</button>
 
 <button class="btn btn-primary" @onclick="UpdateMessageButtonClicked">Update Message</button>
-<br/>
-<br/>
+<button class="btn btn-primary" @onclick="UpdateMessageButtonOnInjectedClicked">Update Casc Message</button>
+<br />
+<br />
 <h3>@AppState.Message</h3>
+<br />
+<h3>@AppStateService.Message</h3>
 
-<br/>
-<ChildComponent/>
+<br />
+<ChildComponent />
 
-@code {
-    [CascadingParameter]
-    public CascadingAppState AppState { get; set; }
+@code { /*
+             * Cascading App state pattern:
+             */
+            [CascadingParameter]
+            public CascadingAppState AppState { get; set; }
 
-    void UpdateMessageButtonClicked()
-    {
-        AppState.Message = "Message updated at " + DateTime.Now.ToLongTimeString();
-    }
+            void UpdateMessageButtonClicked()
+            {
+                AppState.Message = "Message updated at " + DateTime.Now.ToLongTimeString();
+            }
 
-    private void ToggleEnabledButtonClicked()
-    {
-        AppState.Enabled = !AppState.Enabled;
-    }
+            private void ToggleEnabledButtonClicked()
+            {
+                AppState.Enabled = !AppState.Enabled;
+            }
 
-}
+
+
+
+            /*
+             * AppState service pattern
+             */
+
+            void UpdateMessageButtonOnInjectedClicked()
+            {
+                AppStateService.UpdateMessage(this, "Message updated at " + DateTime.Now.ToLongTimeString());
+            }
+
+            protected override void OnInitialized()
+            {
+                AppStateService.StateChanged += async (source, property) => await AppState_StateChanged(source, property);
+            }
+
+            /*
+             * Remember to unsubscribe to avoid mem leaks
+             */
+            void IDisposable.Dispose()
+            {
+                AppStateService.StateChanged -= async (source, property) => await AppState_StateChanged(source, property);
+            }
+
+            private async Task AppState_StateChanged(ComponentBase source, string property)
+            {
+                if (source != this)
+                {
+                    await InvokeAsync(StateHasChanged);
+                }
+            } }

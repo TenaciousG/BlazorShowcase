@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Blazored.Modal;
+using BlazorTrainPlaying_Wasm.Client.Services;
 
 namespace BlazorTrainPlaying_Wasm.Client
 {
@@ -20,6 +21,7 @@ namespace BlazorTrainPlaying_Wasm.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+            builder.Services.AddScoped<AppStateService>();
             builder.Services.AddBlazoredModal();
 
             await builder.Build().RunAsync();
