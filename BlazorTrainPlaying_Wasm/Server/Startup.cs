@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using BlazorTrainPlaying_Wasm.Server.Data;
+using BlazorTrainPlaying_Wasm.Shared.Models;
 
 namespace BlazorTrainPlaying_Wasm.Server
 {
@@ -22,7 +24,13 @@ namespace BlazorTrainPlaying_Wasm.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            /**
+             * AddScoped: one instance per user
+             * AddSingleton: one instance shared among all users
+             * AddTransient: we dont want db context sticking around. will track entities between client and server
+             */
+            services.AddTransient<NorthwindContext, NorthwindContext>();
+            services.AddTransient<RepositoryEF<Customer, NorthwindContext>>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
