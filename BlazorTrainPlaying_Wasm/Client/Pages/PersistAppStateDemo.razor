@@ -1,0 +1,28 @@
+﻿@page "/PersistAppStateDemo"
+
+<button class="btn btn-primary" @onclick="ToggleEnabledButtonClicked">Toggle Enabled</button>
+
+<button class="btn btn-primary" @onclick="UpdateMessageButtonClicked">Update Message</button>
+<br />
+<br />
+<h3>@State.AppState.Message</h3>
+<br />
+
+<br />
+<ChildComponentForPersist />
+
+@code { 
+
+    [CascadingParameter]
+    public CascadingPersistableAppStateProvider State { get; set; }
+
+    void UpdateMessageButtonClicked()
+    {
+        State.AppState.UpdateMessage(this,"Message updated at " + DateTime.Now.ToLongTimeString());
+    }
+
+    private void ToggleEnabledButtonClicked()
+    {
+        State.AppState.UpdateEnabled(this, !State.AppState.Enabled);
+    }
+}

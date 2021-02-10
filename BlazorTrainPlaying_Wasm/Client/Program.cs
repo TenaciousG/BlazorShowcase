@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Blazored.Modal;
 using BlazorTrainPlaying_Wasm.Client.Services;
 
@@ -23,6 +24,7 @@ namespace BlazorTrainPlaying_Wasm.Client
 
             builder.Services.AddScoped<CustomerManager>();
             builder.Services.AddScoped<AppStateService>();
+            builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredModal();
 
             await builder.Build().RunAsync();

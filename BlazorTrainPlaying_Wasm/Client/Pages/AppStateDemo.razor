@@ -1,5 +1,12 @@
 ﻿@page "/AppStateDemo"
-@inject AppStateService AppStateService
+
+<h1>AppState as injected service and AppState as Cascading parameter is disabled in the demo, cause persistent app state has taken presedence.
+    The original code looked like this:</h1>
+
+<code class="oi-code">
+@("<button class=\"btn btn-primary\" @onclick=\"ToggleEnabledButtonClicked\">Toggle Enabled</button><br/><br/><button class=\"btn btn-primary\" @onclick=\"UpdateMessageButtonClicked\">Update Message</button><br/><button class=\"btn btn-primary\" @onclick=\"UpdateMessageButtonOnInjectedClicked\">Update Casc Message</button><br/><br /><br/><br /><br/><h3>@AppState.Message</h3><br/><br /><br/><h3>@AppStateService.Message</h3><br/><br/><br /><br/><ChildComponent /><br/><br/>@code { /*<br/>     * Cascading App state pattern:<br/>     */<br/>    [CascadingParameter]<br/>    public CascadingAppState AppState { get; set; }<br/><br/>    void UpdateMessageButtonClicked()<br/>    {<br/>        AppState.Message = \"Message updated at \" + DateTime.Now.ToLongTimeString();<br/>    }<br/><br/>    private void ToggleEnabledButtonClicked()<br/>    {<br/>        AppState.Enabled = !AppState.Enabled;<br/>    }<br/><br/><br/><br/><br/>    /*<br/>     * AppState service pattern<br/>     */<br/><br/>    void UpdateMessageButtonOnInjectedClicked()<br/>    {<br/>        AppStateService.UpdateMessage(this, \"Message updated at \" + DateTime.Now.ToLongTimeString());<br/>    }<br/><br/>    protected override void OnInitialized()<br/>    {<br/>        AppStateService.StateChanged += async (source, property) => await AppState_StateChanged(source, property);<br/>    }<br/><br/>    /*<br/>     * Remember to unsubscribe to avoid mem leaks<br/>     */<br/>    void IDisposable.Dispose()<br/>    {<br/>        AppStateService.StateChanged -= async (source, property) => await AppState_StateChanged(source, property);<br/>    }<br/><br/>    private async Task AppState_StateChanged(ComponentBase source, string property)<br/>    {<br/>        if (source != this)<br/>        {<br/>            await InvokeAsync(StateHasChanged);<br/>        }<br/>    }<br/><br/>}")
+</code>
+@*@inject AppStateService AppStateService
 @implements IDisposable
 
 
@@ -17,50 +24,52 @@
 <ChildComponent />
 
 @code { /*
-             * Cascading App state pattern:
-             */
-            [CascadingParameter]
-            public CascadingAppState AppState { get; set; }
+     * Cascading App state pattern:
+     */
+    [CascadingParameter]
+    public CascadingAppState AppState { get; set; }
 
-            void UpdateMessageButtonClicked()
-            {
-                AppState.Message = "Message updated at " + DateTime.Now.ToLongTimeString();
-            }
+    void UpdateMessageButtonClicked()
+    {
+        AppState.Message = "Message updated at " + DateTime.Now.ToLongTimeString();
+    }
 
-            private void ToggleEnabledButtonClicked()
-            {
-                AppState.Enabled = !AppState.Enabled;
-            }
-
-
+    private void ToggleEnabledButtonClicked()
+    {
+        AppState.Enabled = !AppState.Enabled;
+    }
 
 
-            /*
-             * AppState service pattern
-             */
 
-            void UpdateMessageButtonOnInjectedClicked()
-            {
-                AppStateService.UpdateMessage(this, "Message updated at " + DateTime.Now.ToLongTimeString());
-            }
 
-            protected override void OnInitialized()
-            {
-                AppStateService.StateChanged += async (source, property) => await AppState_StateChanged(source, property);
-            }
+    /*
+     * AppState service pattern
+     */
 
-            /*
-             * Remember to unsubscribe to avoid mem leaks
-             */
-            void IDisposable.Dispose()
-            {
-                AppStateService.StateChanged -= async (source, property) => await AppState_StateChanged(source, property);
-            }
+    void UpdateMessageButtonOnInjectedClicked()
+    {
+        AppStateService.UpdateMessage(this, "Message updated at " + DateTime.Now.ToLongTimeString());
+    }
 
-            private async Task AppState_StateChanged(ComponentBase source, string property)
-            {
-                if (source != this)
-                {
-                    await InvokeAsync(StateHasChanged);
-                }
-            } }
+    protected override void OnInitialized()
+    {
+        AppStateService.StateChanged += async (source, property) => await AppState_StateChanged(source, property);
+    }
+
+    /*
+     * Remember to unsubscribe to avoid mem leaks
+     */
+    void IDisposable.Dispose()
+    {
+        AppStateService.StateChanged -= async (source, property) => await AppState_StateChanged(source, property);
+    }
+
+    private async Task AppState_StateChanged(ComponentBase source, string property)
+    {
+        if (source != this)
+        {
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}*@

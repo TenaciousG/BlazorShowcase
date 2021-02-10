@@ -1,4 +1,5 @@
-<CascadingAppState>
+<CascadingPersistableAppStateProvider>
+    @*<CascadingAppState>   this was used for the unpersistable app state demo*@
     <CascadingBlazoredModal>
         <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
             <Found Context="routeData">
@@ -11,4 +12,5 @@
             </NotFound>
         </Router>
     </CascadingBlazoredModal>
-</CascadingAppState>
+    @*</CascadingAppState>*@
+</CascadingPersistableAppStateProvider>

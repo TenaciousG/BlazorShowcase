@@ -1,0 +1,90 @@
+﻿@*
+
+      Used in conjunction with PersistableAppState to support app state persisting
+
+*@
+
+@inject ILocalStorageService LocalStorageService
+
+@if (hasLoaded)
+{
+<CascadingValue Value="@this">
+    @ChildContent
+</CascadingValue>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public PersistableAppState AppState { get; set; }
+
+    bool hasLoaded;
+
+    //private string message = "";
+
+    //public string Message
+    //{
+    //    get => message;
+    //    set
+    //    {
+    //        message = value;
+    //        StateHasChanged();
+    //    }
+    //}
+
+    //private int counter = 0;
+
+    //public int Counter
+    //{
+    //    get => counter;
+    //    set
+    //    {
+    //        counter = value;
+    //        StateHasChanged();
+    //    }
+    //}
+
+    //private bool enabled = false;
+
+    //public bool Enabled
+    //{
+    //    get => enabled;
+    //    set
+    //    {
+    //        enabled = value;
+    //        StateHasChanged();
+    //    }
+    //}
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var json = await LocalStorageService.GetItemAsStringAsync("AppStateJson");
+
+        if (json != null && json != string.Empty)
+        {
+            var data = JsonConvert.DeserializeObject<PersistableAppState>(json);
+            if (DateTime.Now <= data.LastAccessed.AddSeconds(data.TimeToLiveInSeconds))
+            {
+                AppState = data;
+            }
+            else
+            {
+                AppState = new PersistableAppState();
+            }
+        }
+        else
+        {
+            AppState = new PersistableAppState();
+        }
+        hasLoaded = true;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        AppState.LastAccessed = DateTime.Now;
+        var json = JsonConvert.SerializeObject(AppState);
+        await LocalStorageService.SetItemAsync("AppStateJson", json);
+    }
+
+}
