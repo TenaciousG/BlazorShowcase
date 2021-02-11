@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using BlazorTrainPlaying_Wasm.Server.Data;
+using BlazorTrainPlaying_Wasm.Server.Hubs;
 using BlazorTrainPlaying_Wasm.Shared.Models;
 
 namespace BlazorTrainPlaying_Wasm.Server
@@ -29,6 +30,7 @@ namespace BlazorTrainPlaying_Wasm.Server
              * AddSingleton: one instance shared among all users
              * AddTransient: we dont want db context sticking around. will track entities between client and server
              */
+            services.AddSignalR();
             services.AddTransient<NorthwindContext, NorthwindContext>();
             services.AddTransient<RepositoryEF<Customer, NorthwindContext>>();
             services.AddControllersWithViews();
@@ -60,6 +62,7 @@ namespace BlazorTrainPlaying_Wasm.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapHub<DataHub>("/DataHub");
                 endpoints.MapFallbackToFile("index.html");
             });
         }
