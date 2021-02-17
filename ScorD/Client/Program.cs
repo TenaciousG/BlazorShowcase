@@ -27,7 +27,10 @@ namespace ScorD.Client
             builder.Services.AddMsalAuthentication(options =>
             {
                 builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
-                options.ProviderOptions.DefaultAccessTokenScopes.Add("https://glensb2cdomain.onmicrosoft.com/glensb2cdomain.onmicrosoft.com/API.Access");
+                options.ProviderOptions.DefaultAccessTokenScopes.Add("https://glensb2cdomain.onmicrosoft.com/a29fae80-0903-42ba-a9bc-721989d6b9dd/API.Access"); //korrekt - gir access token, men får ikke tilgang til server
+                //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://glensb2cdomain.onmicrosoft.com/glensb2cdomain.onmicrosoft.com/a29fae80-0903-42ba-a9bc-721989d6b9dd/API.Access"); //feiler
+                //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://glensb2cdomain.onmicrosoft.com/API.Access");
+                //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://glensb2cdomain.onmicrosoft.com/glensb2cdomain.onmicrosoft.com/API.Access");
                 //additional scopes can be added for additional API apps as needed.
 
                 //override default popup login mode if desired:
