@@ -28,6 +28,8 @@ namespace ScorD.Server
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C")); //protect the web api with Microsoft Identity Platform
 
+            //services.AddAuthorization()
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
