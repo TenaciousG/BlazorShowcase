@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 namespace ScorD.Server.Controllers
 {
     [Authorize]
+    //[Authorize(Policy = "RequireForecastAccess")]
+    // read how to use policies on client side as well: https://chrissainty.com/securing-your-blazor-apps-configuring-policy-based-authorization-with-blazor/
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -33,7 +35,7 @@ namespace ScorD.Server.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

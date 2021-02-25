@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ScorD.Server
 {
@@ -28,7 +29,16 @@ namespace ScorD.Server
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C")); //protect the web api with Microsoft Identity Platform
 
-            //services.AddAuthorization()
+            services.AddAuthorization(options =>
+            {
+                //All calls to the server webAPI must have scope API.Access
+                options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireClaim(ClaimConstants.Scope, "API.Access")
+                    .Build();
+
+                //optional access policies for selected endpoints
+                options.AddPolicy("RequireForecastAccess",
+                    policy => policy.RequireClaim("Permission", "CanCheckForecast", "CanCheckEverything"));
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
